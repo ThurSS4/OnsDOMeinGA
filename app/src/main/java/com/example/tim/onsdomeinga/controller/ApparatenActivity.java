@@ -99,11 +99,6 @@ public class ApparatenActivity extends AppCompatActivity {
 
                     if (dev.isActivated() && dev instanceof DigitalDevice) {
                         dev.setSwitchedOn(!dev.getSwitchedOn());
-//                        if (dev.getSwitchedOn()) {
-//                            dev.switchOff();
-//                        } else {
-//                            dev.switchOn();
-//                        }
                     } else if (dev instanceof ReadableDevice) {
                         Toast.makeText(ApparatenActivity.this, "Readable devices can't be switched on or off.", Toast.LENGTH_SHORT).show();
                     } else {

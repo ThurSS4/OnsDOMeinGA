@@ -25,13 +25,15 @@ public class ClustersActivity extends AppCompatActivity {
 
     private ClustersAdapter mAdapter;
     private SearchView searchView;
+    private boolean isInEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clusters);
 
-        setTitle("Clusters");
+        Intent intent = getIntent();
+        isInEditMode = intent.getBooleanExtra("isInEditMode", false);
 
         FloatingActionButton clusterToevoegen = findViewById(R.id.cluster_toevoegen);
         clusterToevoegen.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +59,7 @@ public class ClustersActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.clustersLijst);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        mAdapter = new ClustersAdapter(mClusters);
+        mAdapter = new ClustersAdapter(mClusters, isInEditMode);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
@@ -78,15 +80,21 @@ public class ClustersActivity extends AppCompatActivity {
 
             @Override
             public void onEditClick(int position) {
-                searchView.setQuery("", false);
+                if (isInEditMode) {
+                    searchView.setQuery("", false);
 
-                Cluster cluster = mClusters.get(position);
-                String name = cluster.getName();
+                    Cluster cluster = mClusters.get(position);
+                    String name = cluster.getName();
 
-                Intent intent = new Intent(ClustersActivity.this, ClusterActivity.class);
-                intent.putExtra("huidigCluster", name);
-                intent.putExtra("willEdit", true);
-                startActivity(intent);
+                    Intent intent = new Intent(ClustersActivity.this, ClusterActivity.class);
+                    intent.putExtra("huidigCluster", name);
+                    intent.putExtra("willEdit", true);
+                    startActivity(intent);
+                } else {
+                    Cluster cluster = mClusters.get(position);
+                    cluster.setSwitchedOn(!cluster.getSwitchedOn());
+                    mAdapter.notifyItemChanged(position);
+                }
             }
         });
     }
@@ -100,12 +108,28 @@ public class ClustersActivity extends AppCompatActivity {
         });
     }
 
+    private void reloadActivity() {
+        Intent intent = getIntent();
+        intent.putExtra("isInEditMode", isInEditMode);
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
             this.finish();
+            return true;
+        } else if (id == R.id.toggleEdit) {
+            System.out.println("isInEditMode pre - " + isInEditMode);
+            isInEditMode = !isInEditMode;
+            reloadActivity();
+            System.out.println("isInEditMode post - " + isInEditMode);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -115,7 +139,13 @@ public class ClustersActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search_edit, menu);
+        if (isInEditMode) {
+            inflater.inflate(R.menu.menu_search_doneedit, menu);
+            setTitle("Clusters bewerken");
+        } else {
+            inflater.inflate(R.menu.menu_search_edit, menu);
+            setTitle("Clusters");
+        }
 
         MenuItem searchItem = menu.findItem(R.id.search);
         searchView = (SearchView) searchItem.getActionView();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.tim.onsdomeinga.R;
 import com.example.tim.onsdomeinga.model.Cluster;
 import com.example.tim.onsdomeinga.model.Device;
+import com.example.tim.onsdomeinga.model.DigitalDevice;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +22,7 @@ public class ClustersAdapter extends RecyclerView.Adapter<ClustersAdapter.Cluste
     private ArrayList<Cluster> mClusters;
     private ArrayList<Cluster> mClustersVolledig;
     private OnItemClickListener mListener;
+    private boolean isInEditMode;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -71,9 +73,10 @@ public class ClustersAdapter extends RecyclerView.Adapter<ClustersAdapter.Cluste
         }
     }
 
-    public ClustersAdapter(ArrayList<Cluster> clusters) {
+    public ClustersAdapter(ArrayList<Cluster> clusters, boolean isInEditMode) {
         mClusters = clusters;
         mClustersVolledig = new ArrayList<>(MainActivity.clusterList);
+        this.isInEditMode = isInEditMode;
     }
 
     @Override
@@ -92,6 +95,8 @@ public class ClustersAdapter extends RecyclerView.Adapter<ClustersAdapter.Cluste
 
         if (currentItem.getName().equals("The Big Bang")) {
             holder.mClusterOmschrijving.setText("It's not just a theory!");
+        } else if (currentItem.getName().equals("The Bang")) {
+                holder.mClusterOmschrijving.setText("The theory of everything.");
         } else {
 
             String str = "";
@@ -102,6 +107,16 @@ public class ClustersAdapter extends RecyclerView.Adapter<ClustersAdapter.Cluste
 
             str = str.substring(0, str.length() - 2);
             holder.mClusterOmschrijving.setText(str);
+        }
+
+        if (isInEditMode) {
+            holder.mEditImage.setImageResource(R.drawable.ic_edit_black);
+        } else {
+            if (currentItem.getSwitchedOn()) {
+                holder.mEditImage.setImageResource(R.drawable.ic_lightbulb_green);
+            } else {
+                holder.mEditImage.setImageResource(R.drawable.ic_lightbulb_black);
+            }
         }
     }
 

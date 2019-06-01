@@ -61,7 +61,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
     @Override
     public boolean getSwitchedOn() {
         // TODO Auto-generated method stub
-        return false;
+        return switchedOn;
     }
 
     public String giveClusterContentsAsString() {
