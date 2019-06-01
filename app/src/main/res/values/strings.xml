@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">onsDOMeinGA</string>
+
+    <string-array name="device_types">
+        <item>Alleen uitleesbaar</item>
+        <item>Schakelbaar</item>
+        <item>Dimbaar</item>
+    </string-array>
+</resources>

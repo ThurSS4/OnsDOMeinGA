@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_marginBottom="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="2dp"
+            android:id="@+id/cluster_apparaatIcoon"
+            android:src="@drawable/ic_lightbulb_black"
+            android:contentDescription="Icon describing the device"/>
+
+        <TextView
+            android:id="@+id/cluster_apparaatNaam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/cluster_add_apparaat"
+            android:layout_toEndOf="@+id/cluster_apparaatIcoon"
+            android:layout_marginEnd="8dp"
+            android:text="Apparaat naam"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cluster_apparaatOmschrijving"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cluster_apparaatNaam"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@+id/cluster_apparaatIcoon"
+            android:layout_toStartOf="@+id/cluster_select_apparaat"
+            android:text="Apparaat omschrijving"
+            android:textSize="15sp" />
+
+        <!--<ImageView-->
+            <!--android:id="@+id/cluster_add_apparaat"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@drawable/ic_add_black"-->
+            <!--android:contentDescription="ADD button" />-->
+
+        <CheckBox
+            android:id="@+id/cluster_select_apparaat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+        
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
