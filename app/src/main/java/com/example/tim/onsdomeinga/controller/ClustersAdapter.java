@@ -113,9 +113,17 @@ public class ClustersAdapter extends RecyclerView.Adapter<ClustersAdapter.Cluste
             holder.mEditImage.setImageResource(R.drawable.ic_edit_black);
         } else {
             if (currentItem.getSwitchedOn()) {
-                holder.mEditImage.setImageResource(R.drawable.ic_lightbulb_green);
+                if (currentItem.getName().equals("The Big Bang") || currentItem.getName().equals("The Bang")) {
+                    holder.mEditImage.setImageResource(R.drawable.ic_flare_green);
+                } else {
+                    holder.mEditImage.setImageResource(R.drawable.ic_lightbulb_green);
+                }
             } else {
-                holder.mEditImage.setImageResource(R.drawable.ic_lightbulb_black);
+                if (currentItem.getName().equals("The Big Bang") || currentItem.getName().equals("The Bang")) {
+                    holder.mEditImage.setImageResource(R.drawable.ic_flare_black);
+                } else {
+                    holder.mEditImage.setImageResource(R.drawable.ic_lightbulb_black);
+                }
             }
         }
     }
