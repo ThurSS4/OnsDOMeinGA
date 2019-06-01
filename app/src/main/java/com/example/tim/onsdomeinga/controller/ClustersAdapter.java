@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.tim.onsdomeinga.R;
 import com.example.tim.onsdomeinga.model.Cluster;
+import com.example.tim.onsdomeinga.model.Device;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,7 +89,20 @@ public class ClustersAdapter extends RecyclerView.Adapter<ClustersAdapter.Cluste
 
         holder.mClusterIcon.setImageResource(R.drawable.ic_group_work);
         holder.mClusterNaam.setText(currentItem.getName());
-        holder.mClusterOmschrijving.setText("Cluster omschrijving");
+
+        if (currentItem.getName().equals("The Big Bang")) {
+            holder.mClusterOmschrijving.setText("It's not just a theory!");
+        } else {
+
+            String str = "";
+
+            for (Device dev : currentItem.getDevicesInCluster()) {
+                str += dev.getName() + ", ";
+            }
+
+            str = str.substring(0, str.length() - 2);
+            holder.mClusterOmschrijving.setText(str);
+        }
     }
 
     @Override
