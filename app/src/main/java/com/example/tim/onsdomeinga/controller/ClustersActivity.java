@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.example.tim.onsdomeinga.R;
 import com.example.tim.onsdomeinga.model.Cluster;
+import com.example.tim.onsdomeinga.model.Device;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -87,6 +88,13 @@ public class ClustersActivity extends AppCompatActivity {
                 } else {
                     Cluster cluster = mClusters.get(position);
                     cluster.setSwitchedOn(!cluster.getSwitchedOn());
+
+                    for (Device dev : cluster.getDevicesInCluster()) {
+                        System.out.println("BEFORE: Apparaat " + dev.getName() + " staat aan = " + dev.getSwitchedOn());
+                        dev.setSwitchedOn(cluster.getSwitchedOn());
+                        System.out.println("AFTER: Apparaat " + dev.getName() + " staat aan = " + dev.getSwitchedOn());
+                    }
+
                     mAdapter.notifyItemChanged(position);
                 }
             }

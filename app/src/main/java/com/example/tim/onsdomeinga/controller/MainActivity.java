@@ -39,14 +39,6 @@ public class MainActivity extends AppCompatActivity implements KnowHcDialog.Know
     private Button apparaten;
     private Button clusters;
 
-    public ArrayList<Device> getDeviceList() {
-        try {
-            return deviceList;
-        } catch (NullPointerException npe) {
-            return new ArrayList<>();
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +58,9 @@ public class MainActivity extends AppCompatActivity implements KnowHcDialog.Know
             System.out.println("Cluster " + cluster.getName() + " has " + cluster.getDevicesInCluster().size() + " devices.");
         }
 
-        //createMockData();
-
         apparaten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //sendTestRequest();
                 Intent intent = new Intent(MainActivity.this, ApparatenActivity.class);
                 startActivity(intent);
             }
@@ -172,42 +161,6 @@ public class MainActivity extends AppCompatActivity implements KnowHcDialog.Know
         editor.apply();
 
         connectToServer();
-    }
-
-    private void createMockData() {
-        Device lamp1 = new DimmableDevice("Lamp 1", 23);
-        ((DimmableDevice) lamp1).setDimValue(88);
-        Device oven = new SwitchableDevice("Oven", 12);
-        oven.setActivated(false);
-        Device thermostaat = new ReadableDevice("Thermostaat", 16);
-//        thermostaat.switchOff();
-        deviceList.add(lamp1);
-        deviceList.add(oven);
-        deviceList.add(thermostaat);
-
-        Cluster woonkamer = new Cluster("Woonkamer");
-        woonkamer.addDeviceToCluster(lamp1);
-        woonkamer.addDeviceToCluster(thermostaat);
-        clusterList.add(woonkamer);
-    }
-
-    private void sendTestRequest() {
-        try {
-            proxyOnsDomein.connectClientToServer("1234");
-        } catch (Exception e) {
-            System.out.println("Failed to connect.");
-            e.printStackTrace();
-        }
-
-        try {
-            String reply = proxyOnsDomein.sendRequest("setHc", "1234", "" + requestForId, "<10:1:0>");
-            proxyOnsDomein.closeConnection();
-            Toast.makeText(MainActivity.this, reply, Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Failed to send request to: " + requestForId, Toast.LENGTH_SHORT).show();
-            System.out.println("Failed to send request");
-            e.printStackTrace();
-        }
     }
 
     @Override
