@@ -39,10 +39,7 @@ public class ClustersActivity extends AppCompatActivity {
         clusterToevoegen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ClustersActivity.this, ClusterActivity.class);
-                intent.putExtra("huidigCluster", "");
-                intent.putExtra("willEdit", true);
-                startActivity(intent);
+                toClusterActivityIntent("", true);
             }
         });
     }
@@ -53,6 +50,17 @@ public class ClustersActivity extends AppCompatActivity {
 
         buildRecyclerView();
         sorteerAZ(mClusters);
+    }
+
+    private void toClusterActivityIntent(String clusterName, Boolean willEdit) {
+        Intent intent = new Intent(ClustersActivity.this, ClusterActivity.class);
+        intent.putExtra("huidigCluster", clusterName);
+        intent.putExtra("willEdit", willEdit);
+        startActivity(intent);
+    }
+
+    private String getClusterNameForPosition(int position) {
+        return mClusters.get(position).getName();
     }
 
     public void buildRecyclerView() {
@@ -68,28 +76,14 @@ public class ClustersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 searchView.setQuery("", false);
-
-                Cluster cluster = mClusters.get(position);
-                String name = cluster.getName();
-
-                Intent intent = new Intent(ClustersActivity.this, ClusterActivity.class);
-                intent.putExtra("huidigCluster", name);
-                intent.putExtra("willEdit", false);
-                startActivity(intent);
+                toClusterActivityIntent(getClusterNameForPosition(position), false);
             }
 
             @Override
             public void onEditClick(int position) {
                 if (isInEditMode) {
                     searchView.setQuery("", false);
-
-                    Cluster cluster = mClusters.get(position);
-                    String name = cluster.getName();
-
-                    Intent intent = new Intent(ClustersActivity.this, ClusterActivity.class);
-                    intent.putExtra("huidigCluster", name);
-                    intent.putExtra("willEdit", true);
-                    startActivity(intent);
+                    toClusterActivityIntent(getClusterNameForPosition(position), true);
                 } else {
                     Cluster cluster = mClusters.get(position);
                     cluster.setSwitchedOn(!cluster.getSwitchedOn());

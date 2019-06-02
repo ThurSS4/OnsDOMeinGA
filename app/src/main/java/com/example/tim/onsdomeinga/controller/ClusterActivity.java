@@ -219,12 +219,6 @@ public class ClusterActivity extends AppCompatActivity {
                 tempCluster.addDeviceToCluster(mApparaten.get(mApparaten.indexOf(apparaat)));
             }
 
-//            if (isAan.isChecked()) {
-//                tempCluster.switchOn();
-//            } else {
-//                tempCluster.switchOff();
-//            }
-
             Toast.makeText(this, "Cluster \'" + tempCluster.getName() + "\' with " + tempCluster.getDevicesInCluster().size() + " devices was added.", Toast.LENGTH_SHORT).show();
         } else if (isEditing) {
             Cluster tempCluster = MainActivity.clusterList.get(clusterIndex);
@@ -236,13 +230,6 @@ public class ClusterActivity extends AppCompatActivity {
 
             System.out.println(" ");
             System.out.println("SAVE - isAan checked = " + isAan.isChecked());
-//            if (isAan.isChecked()) {
-//                tempCluster.setSwitchedOn(true);
-//                tempCluster.switchOn();
-//            } else {
-//                tempCluster.setSwitchedOn(false);
-//                tempCluster.switchOff();
-//            }
 
             Toast.makeText(this, "Updated cluster \'" + name + "\'.", Toast.LENGTH_SHORT).show();
         }

@@ -15,7 +15,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import com.example.tim.onsdomeinga.R;
-import com.example.tim.onsdomeinga.interfaces.Readable;
 import com.example.tim.onsdomeinga.model.Device;
 import com.example.tim.onsdomeinga.model.DigitalDevice;
 import com.example.tim.onsdomeinga.model.ReadableDevice;
@@ -43,10 +42,7 @@ public class ApparatenActivity extends AppCompatActivity {
         apparaatToevoegen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ApparatenActivity.this, ApparaatActivity.class);
-                intent.putExtra("huidigApparaat", "");
-                intent.putExtra("willEdit", true);
-                startActivity(intent);
+                toApparaatActivityIntent("", true);
             }
         });
     }
@@ -57,6 +53,17 @@ public class ApparatenActivity extends AppCompatActivity {
 
         buildRecyclerView();
         sorteerAZ(mApparaten);
+    }
+
+    private void toApparaatActivityIntent(String deviceName, Boolean willEdit) {
+        Intent intent = new Intent(ApparatenActivity.this, ApparaatActivity.class);
+        intent.putExtra("huidigApparaat", deviceName);
+        intent.putExtra("willEdit", willEdit);
+        startActivity(intent);
+    }
+
+    private String getDeviceNameForPosition(int position) {
+        return mApparaten.get(position).getName();
     }
 
     public void buildRecyclerView() {
@@ -73,13 +80,7 @@ public class ApparatenActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 searchView.setQuery("", false);
 
-                Device dev = mApparaten.get(position);
-                String name = dev.getName();
-
-                Intent intent = new Intent(ApparatenActivity.this, ApparaatActivity.class);
-                intent.putExtra("huidigApparaat", name);
-                intent.putExtra("willEdit", false);
-                startActivity(intent);
+                toApparaatActivityIntent(getDeviceNameForPosition(position), false);
             }
 
             @Override
@@ -87,13 +88,7 @@ public class ApparatenActivity extends AppCompatActivity {
                 if (isInEditMode) {
                     searchView.setQuery("", false);
 
-                    Device dev = mApparaten.get(position);
-                    String name = dev.getName();
-
-                    Intent intent = new Intent(ApparatenActivity.this, ApparaatActivity.class);
-                    intent.putExtra("huidigApparaat", name);
-                    intent.putExtra("willEdit", true);
-                    startActivity(intent);
+                    toApparaatActivityIntent(getDeviceNameForPosition(position), true);
                 } else {
                     Device dev = mApparaten.get(position);
 
