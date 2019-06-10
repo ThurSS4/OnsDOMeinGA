@@ -19,7 +19,6 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
         setdCom(new DeviceCommunicator());
         changePort(port);
-//        changeName(name);
         this.name = name;
         switchedOn = true;
         activated = true;
@@ -29,7 +28,6 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
         setdCom(new DeviceCommunicator());
         changePort(port);
-//        changeName(name);
         this.name = name;
         this.switchedOn = on;
         this.activated = active;

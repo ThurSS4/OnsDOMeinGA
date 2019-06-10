@@ -63,7 +63,7 @@ public class ApparaatActivity extends AppCompatActivity implements AdapterView.O
     /**
      * Lifecycle method starting things off. After the OS super call the contentView is connected to the Activity
      * After that executing the 4 mentioned methods to setup the activity before use.
-     * @param savedInstanceState
+     * @param savedInstanceState reference to Bundle object passed into the method
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +90,7 @@ public class ApparaatActivity extends AppCompatActivity implements AdapterView.O
             mApparaat = new ReadableDevice("", 0);
             isEditing = true;
         } else {
+            // Loop through the deviceList to find the index for the device matching the devName
             for (int i = 0; i < MainActivity.deviceList.size(); i++) {
                 if (MainActivity.deviceList.get(i).getName().equals(devName)) {
                     deviceIndex = i;
@@ -420,10 +421,10 @@ public class ApparaatActivity extends AppCompatActivity implements AdapterView.O
 
     /**
      * Method belong to device type dropdown list. Depending on the selected option various things happen
-     * @param parent the view with the different optiones
-     * @param view
-     * @param position
-     * @param id
+     * @param parent the AdapterView (list with options) where the selection happened
+     * @param view the option (view) which was clicked
+     * @param position the position of the view in the adapter
+     * @param id the row id of the item that is selected
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
