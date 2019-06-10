@@ -37,9 +37,8 @@ public class OnsProxy {
 //        final String SERVER_IP = "172.20.10.11"; // laptop Mathijs
 //        final String SERVER_IP = "172.20.10.10"; // telefoon Wouter
 //        final String SERVER_IP = "172.20.10.4"; // telefoon Tim
-        final String SERVER_IP = "192.168.2.139"; // laptop Tim
+        final String SERVER_IP = "192.168.2.153"; // laptop Tim
 //        final String SERVER_IP = "192.168.2.159"; // Windows laptop Tim
-//        final String SERVER_IP = "localhost"; // localhost
 
         // Get the socket from the server
         Socket s = new Socket(SERVER_IP, ODSP);
